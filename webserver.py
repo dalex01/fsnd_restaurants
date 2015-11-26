@@ -1,27 +1,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
 from database_setup import Restaurant, Base, MenuItem
-
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import cgi
 
 engine = create_engine('sqlite:///restaurantmenu.db')
-# Bind the engine to the metadata of the Base class so that the
-# declaratives can be accessed through a DBSession instance
 Base.metadata.bind = engine
-
 DBSession = sessionmaker(bind=engine)
-# A DBSession() instance establishes all conversations with the database
-# and represents a "staging zone" for all the objects loaded into the
-# database session object. Any change made against the objects in the
-# session won't be persisted into the database until you call
-# session.commit(). If you're not happy about the changes, you can
-# revert all of them back to the last commit by calling
-# session.rollback()
 session = DBSession()
-
-
 
 class webServerHandler(BaseHTTPRequestHandler):
 
@@ -37,40 +23,62 @@ class webServerHandler(BaseHTTPRequestHandler):
                 restaurants = session.query(Restaurant).all()
                 for restaurant in restaurants:
                     output += "<div>" + str(restaurant.name) + "</div>"
-                    output += "<div><a href=\"restaurant/" + str(restaurant.id) + "/edit\">Edit</a></div>"
-                    output += "<div><a href=\"restaurant/" + str(restaurant.id) + "/delete\">Delete</a></div>"
+                    output += "<div><a href=\"restaurants/" + str(restaurant.id) + "/edit\">Edit</a></div>"
+                    output += "<div><a href=\"restaurants/" + str(restaurant.id) + "/delete\">Delete</a></div>"
                     output += "<br>"
                 output += "<div><a href=\"/restaurants/new\">Create new restaurant</a></div>"
                 output += "</body></html>"
                 self.wfile.write(output)
-                print output
                 return
             if self.path.endswith("/edit"):
-                output = ""
-                output += "<html><body>"
-                output += "<h1>Edit!</h1>"
-                output += "<a href=\"/restaurants\">Back to restaurants</h1>"
-                output += "</body></html>"
-                self.wfile.write(output)
-                print output
-                return
+                restaurant_id = self.path.split('/')[2]
+                restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+                if restaurant != []:
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/html')
+                    self.end_headers()
+                    output = ""
+                    output += "<html><body>"
+                    output += "<h1>Edit restaurant</h1>"
+                    output += "<h2>Enter new name of restaurant</h2>"
+                    output += "<form method='POST' enctype='multipart/form-data' action='/restaurants/%s/edit'>" % restaurant_id
+                    output += "<input name='newName' type='text' placeholder='%s'>" % restaurant.name
+                    output += "<input type='submit' value='Rename'></form>"
+                    output += "<a href=\"/restaurants\">Back to restaurants</h1>"
+                    output += "</body></html>"
+                    self.wfile.write(output)
+                    return
             if self.path.endswith("/delete"):
-                output = ""
-                output += "<html><body>"
-                output += "<h1>Delete!</h1>"
-                output += "<a href=\"/restaurants\">Back to restaurants</h1>"
-                output += "</body></html>"
-                self.wfile.write(output)
-                print output
-                return
+                restaurant_id = self.path.split('/')[2]
+                restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+                if restaurant != []:
+                    self.send_response(200)
+                    self.send_header('Content-type', 'text/html')
+                    self.end_headers()
+                    output = ""
+                    output += "<html><body>"
+                    output += "<h1>Delete restaurant</h1>"
+                    output += "<h2>Are you sure you want to delete restaurant %s?</h2>" % restaurant.name
+                    output += "<form method='POST' enctype='multipart/form-data' action='/restaurants/%s/delete'>" % restaurant_id
+                    output += "<input type='submit' value='Delete'></form>"
+                    output += "<a href=\"/restaurants\">Back to restaurants</h1>"
+                    output += "</body></html>"
+                    self.wfile.write(output)
+                    return
             if self.path.endswith("/new"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
                 output = ""
                 output += "<html><body>"
                 output += "<h1>New restaurant</h1>"
+                output += "<h2>Enter name of new restaurant</h2>"
+                output += "<form method='POST' enctype='multipart/form-data' action='/restaurants/new'>"
+                output += "<input name='newName' type='text' placeholder='New Restaurant Name'>"
+                output += "<input type='submit' value='Save'></form>"
                 output += "<a href=\"/restaurants\">Back to restaurants</h1>"
                 output += "</body></html>"
                 self.wfile.write(output)
-                print output
                 return
 
         except IOError:
@@ -78,7 +86,53 @@ class webServerHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         try:
-        	pass
+            if self.path.endswith("/edit"):
+                ctype, pdict = cgi.parse_header(
+                    self.headers.getheader('content-type'))
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                namecontent = fields.get('newName')
+
+                restaurant_id = self.path.split('/')[2]
+                restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+                if restaurant != []:
+                    restaurant.name = namecontent[0]
+                    session.add(restaurant)
+                    session.commit()
+
+                self.send_response(301)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.end_headers()
+            if self.path.endswith("/delete"):
+                ctype, pdict = cgi.parse_header(
+                    self.headers.getheader('content-type'))
+
+                restaurant_id = self.path.split('/')[2]
+                restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+                if restaurant != []:
+                    session.delete(restaurant)
+                    session.commit()
+
+                self.send_response(301)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.end_headers()
+            if self.path.endswith("/new"):
+                ctype, pdict = cgi.parse_header(
+                    self.headers.getheader('content-type'))
+                if ctype == 'multipart/form-data':
+                    fields = cgi.parse_multipart(self.rfile, pdict)
+                namecontent = fields.get('newName')
+
+                res = Restaurant(name = namecontent[0])
+                session.add(res)
+                session.commit()
+
+                self.send_response(301)
+                self.send_header('Content-type', 'text/html')
+                self.send_header('Location', '/restaurants')
+                self.end_headers()
         except:
             pass
 
