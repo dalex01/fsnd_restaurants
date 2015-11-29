@@ -1,9 +1,8 @@
 from flask import Flask, render_template, url_for, redirect, request, flash, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
-
-app = Flask(__name__)
+from models import Base, Restaurant, MenuItem
+from restaurants import app
 
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
@@ -71,8 +70,3 @@ def deleteMenuItem(restaurant_id, menu_id):
 		return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
 	else:
 		return render_template('deletemenuitem.html', item=item, restaurant_id=restaurant_id)
-
-if __name__ == '__main__':
-	app.secret_key = 'super_secret_key'
-	app.debug = True
-	app.run(host='0.0.0.0', port=5000)

@@ -1,0 +1,5 @@
+This file lists all of the Python packages that app depends on:
+- sqlalchemy
+- os
+- sys
+- flask
