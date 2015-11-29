@@ -20,7 +20,7 @@ session = DBSession()
 
 
 #Menu for UrbanBurger
-restaurant1 = Restaurant(name = "Urban Burger")
+restaurant1 = Restaurant(name = "Urban Burger", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -75,7 +75,7 @@ session.commit()
 
 
 #Menu for Super Stir Fry
-restaurant2 = Restaurant(name = "Super Stir Fry")
+restaurant2 = Restaurant(name = "Super Stir Fry", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant2)
 session.commit()
@@ -115,7 +115,7 @@ session.commit()
 
 
 #Menu for Panda Garden
-restaurant1 = Restaurant(name = "Panda Garden")
+restaurant1 = Restaurant(name = "Panda Garden", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -148,7 +148,7 @@ session.commit()
 
 
 #Menu for Thyme for that
-restaurant1 = Restaurant(name = "Thyme for That Vegetarian Cuisine ")
+restaurant1 = Restaurant(name = "Thyme for That Vegetarian Cuisine ", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -187,7 +187,7 @@ session.commit()
 
 
 #Menu for Tony's Bistro
-restaurant1 = Restaurant(name = "Tony\'s Bistro ")
+restaurant1 = Restaurant(name = "Tony\'s Bistro ", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -222,7 +222,7 @@ session.commit()
 
 
 #Menu for Andala's 
-restaurant1 = Restaurant(name = "Andala\'s")
+restaurant1 = Restaurant(name = "Andala\'s", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -257,7 +257,7 @@ session.commit()
 
 
 #Menu for Auntie Ann's
-restaurant1 = Restaurant(name = "Auntie Ann\'s Diner' ")
+restaurant1 = Restaurant(name = "Auntie Ann\'s Diner' ", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -302,7 +302,7 @@ session.commit()
 
 
 #Menu for Cocina Y Amor
-restaurant1 = Restaurant(name = "Cocina Y Amor ")
+restaurant1 = Restaurant(name = "Cocina Y Amor ", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 
 session.add(restaurant1)
 session.commit()
@@ -319,7 +319,7 @@ session.add(menuItem2)
 session.commit()
 
 
-restaurant1 = Restaurant(name = "State Bird Provisions")
+restaurant1 = Restaurant(name = "State Bird Provisions", address="1600 Pennsylvania Ave NW,Washington, DC 20500, USA", phone="+123456789", website="google.com", cousine="French", img="https://images.unsplash.com/photo-1445364502257-00c4ddb9b18d?crop=entropy&fit=crop&fm=jpg&h=650&ixjsv=2.0.0&ixlib=rb-0.3.5&q=80&w=1375")
 session.add(restaurant1)
 session.commit()
 

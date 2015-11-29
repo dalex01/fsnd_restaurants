@@ -12,6 +12,11 @@ class Restaurant(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
+    address =  Column(String(250), nullable=False)
+    phone = Column(String(20))
+    website = Column(String(120))
+    cousine = Column(String(120))
+    img = Column(String(120))
 
 class MenuItem(Base):
     __tablename__ = 'menu_item'
