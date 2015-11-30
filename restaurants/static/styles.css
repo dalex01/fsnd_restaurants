@@ -1,7 +1,25 @@
 body {
-  font-family: sans-serif; background-image: url('img3.jpg'); background-color: #333333
+    padding-top: 80px;
 }
 
+.restaurant-tile {
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.restaurant-tile:hover {
+    background-color: #EEE;
+    cursor: pointer;
+}
+
+.flash {
+    background: #cee5F5;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+/*
 h1,
 h2,
 h3,
@@ -68,4 +86,4 @@ a {
 
 .flash {
   background: #cee5F5;
-}
+}*/
