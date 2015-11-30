@@ -12,11 +12,26 @@ class Restaurant(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    address =  Column(String(250), nullable=False)
+    address =  Column(String(250))
     phone = Column(String(20))
     website = Column(String(120))
     cousine = Column(String(120))
     img = Column(String(120))
+
+    # We added this serialize function to be able to send JSON objects in a
+    # serializable format
+    @property
+    def serialize(self):
+
+        return {
+            'name': self.name,
+            'address': self.address,
+            'id': self.id,
+            'phone': self.phone,
+            'website': self.website,
+            'cousine': self.cousine,
+            'img': self.img
+        }
 
 class MenuItem(Base):
     __tablename__ = 'menu_item'
@@ -39,7 +54,7 @@ class MenuItem(Base):
             'description': self.description,
             'id': self.id,
             'price': self.price,
-            'course': self.course,
+            'course': self.course
         }
 
 engine = create_engine('sqlite:///restaurantmenu.db')
