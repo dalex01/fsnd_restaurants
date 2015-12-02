@@ -2,18 +2,55 @@ body {
     padding-top: 80px;
 }
 
-.restaurant-tile {
-    margin-bottom: 20px;
-    padding-top: 20px;
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: 100%;
+}
+
+@media screen and (min-width: 450px) {
+    .restaurant-tile {
+        margin-bottom: 20px;
+        padding-top: 20px;
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .restaurant-tile {
+        margin-bottom: 20px;
+        padding-top: 20px;
+        width: 33.3%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .restaurant-tile {
+        margin-bottom: 20px;
+        padding-top: 20px;
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .container {
+        width: 1300px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .restaurant-tile {
+        margin-bottom: 20px;
+        padding-top: 20px;
+        width: 20%;
+    }
 }
 
 .restaurant-tile:hover {
     background-color: #EEE;
     cursor: pointer;
-}
-
-.flash {
-    background: #cee5F5;
 }
 
 h2 {
