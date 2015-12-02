@@ -41,6 +41,7 @@ class MenuItem(Base):
     description = Column(String(250))
     price = Column(String(8))
     course = Column(String(250))
+    img = Column(String(120))
     restaurant_id = Column(Integer,ForeignKey('restaurant.id'))
     restaurant = relationship(Restaurant)
 
@@ -54,7 +55,8 @@ class MenuItem(Base):
             'description': self.description,
             'id': self.id,
             'price': self.price,
-            'course': self.course
+            'course': self.course,
+            'img': self.img
         }
 
 engine = create_engine('sqlite:///restaurantmenu.db')

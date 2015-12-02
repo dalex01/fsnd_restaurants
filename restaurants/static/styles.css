@@ -19,6 +19,22 @@ body {
 h2 {
     font-size: 1.2em;
 }
+
+.name {
+  width:50%;
+  display: inline-block;
+}
+
+.description {}
+
+.price {}
+
+.editdeletepane{}
+
+.flash {
+  background: #cee5F5;
+}
+
 /*
 h1,
 h2,
@@ -67,23 +83,4 @@ a {
   left:50%;
   text-align: center;
 }
-
-.name {
-  width:50%;
-  display: inline-block;
-  float: left;
-}
-
-.description {}
-
-.price {
-  text-align: right;
-  width:50%;
-  float: right;
-}
-
-.editdeletepane{}
-
-.flash {
-  background: #cee5F5;
-}*/
+*/

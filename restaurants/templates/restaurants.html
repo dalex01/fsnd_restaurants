@@ -28,7 +28,7 @@
       		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         		<div class="container">
           			<div class="navbar-header">
-            			<a class="navbar-brand" href="#">Restaurant's Menu Catalog</a>
+          				<a class="navbar-brand" href="#">Restaurant's Menu Catalog</a>
           			</div>
           			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       					<ul class="nav navbar-nav">
@@ -54,9 +54,9 @@
       			<div class="col-md-6 col-lg-4 restaurant-tile text-center">
       				<a href='{{url_for('showMenu',restaurant_id = i.id)}}'><img src="{{i.img}}"></a>
     				<a href='{{url_for('showMenu',restaurant_id = i.id)}}'><h2>{{i.name}}</h2></a>
-    				<div>{{i.address}}</div>
-    				<div>{{i.phone}}</div>
-    				<div>{{i.cousine}}</div>
+    				<div><strong>Address:</strong> {{i.address}}</div>
+    				<div><strong>Phone:</strong> {{i.phone}}</div>
+    				<div><strong>Cousine:</strong> {{i.cousine}}</div>
     				<div class = "editdeletepane">
 						<a href='{{url_for('editRestaurant',restaurant_id = i.id)}}' >Edit</a>
 						<a href='{{url_for('deleteRestaurant', restaurant_id = i.id)}}' >Delete</a>

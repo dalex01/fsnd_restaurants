@@ -1,14 +1,46 @@
 <html>
 	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<title>Restaurants</title>
+  		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	</head>
 	<body>
-		<div class = 'pane'>
-			<div class = 'header'>
-				<h1>{{ restaurant.name }}</h1>
-			</div>
-			<a href = '{{url_for('newMenuItem', restaurant_id = restaurant.id) }}'>Create New Item</a>
-			<div class = 'flash'>
+
+		<div class="modal" id="trailer">
+      		<div class="modal-dialog">
+        		<div class="modal-content">
+          			<a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            			<img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          			</a>
+          			<div class="scale-media" id="trailer-video-container">
+          			</div>
+        		</div>
+      		</div>
+    	</div>
+    	<!-- Main Page Content -->
+    	<div class="container">
+      		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        		<div class="container">
+          			<div class="navbar-header">
+          				<a class="navbar-brand" href="#">{{ restaurant.name }} Menu</a>
+          			</div>
+          			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      					<ul class="nav navbar-nav">
+      						<li><a href = '{{url_for('showRestaurants') }}'><< Back to restaurants</a></li>
+      						<li><a href = '{{url_for('newMenuItem', restaurant_id = restaurant.id) }}'>Create New Item</a></li>
+      					</ul>
+      				</div>
+        		</div>
+      		</div>
+    	</div>
+    	<div class="container">
+    		<div class = 'flash'>
 		    	{% with messages = get_flashed_messages() %}
       				{% if messages %}
           		        <ul>
@@ -19,22 +51,18 @@
         			{% endif %}
     			{% endwith %}
 			</div>
-
 			{% for i in items %}
-    			<div class = 'nameAndPrice'>
-					<span class = 'name'><p>{{i.name}}</p></span>
-					<span class = 'price'>
-						<p>{{i.price}} </p>
-					</span>
-				</div>
-				<div class = 'description'>
-					<p>{{i.description}}</p>
-				</div>
-				<div class = "editdeletepane">
-					<a href='{{url_for('editMenuItem',restaurant_id = restaurant.id, menu_id=i.id)}}' >Edit</a>
-					<a href='{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id=i.id)}}' >Delete</a>
+      			<div class="col-md-6 col-lg-4 restaurant-tile text-center">
+      				<img src="{{i.img}}">
+    				<h2 class = 'name'>{{i.name}}</h2>
+    				<div class = 'price'><strong>Price:</strong> {{i.price}}</div>
+    				<div class = 'description'><strong>Description:</strong> {{i.description}}</div>
+    				<div class = "editdeletepane">
+						<a href='{{url_for('editRestaurant',restaurant_id = i.id)}}' >Edit</a>
+						<a href='{{url_for('deleteRestaurant', restaurant_id = i.id)}}' >Delete</a>
+					</div>
 				</div>
 			{% endfor %}
-		</div>
+    	</div>
 	</body>
 </html>
