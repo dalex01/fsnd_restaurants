@@ -1,13 +1,64 @@
 <html>
 	<head>
+		<meta charset="utf-8">
+  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  		<meta name="viewport" content="width=device-width, initial-scale=1">
+  		<title>Edit Restaurant</title>
+  		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+    	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	</head>
 	<body>
-		<h1> Edit Menu Item </h1>
-		<form action="{{ url_for('editRestaurant',restaurant_id = restaurant_id)}}" method = 'post'>
-			<input type ='text' size='30' name='name'>
-			<input type='submit' value='Edit'>
-			<a href = '{{url_for('showRestaurants')}}'> Cancel </a>
-		</form>
+
+		<div class="modal" id="trailer">
+      		<div class="modal-dialog">
+        		<div class="modal-content">
+          			<a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+            			<img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+          			</a>
+          			<div class="scale-media" id="trailer-video-container">
+          			</div>
+        		</div>
+      		</div>
+    	</div>
+    	<!-- Main Page Content -->
+    	<div class="container">
+      		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        		<div class="container">
+          			<div class="navbar-header">
+          				<a class="navbar-brand" href="#">Edit Restaurant</a>
+          			</div>
+          			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      					<ul class="nav navbar-nav">
+      						<li><a href = '{{url_for('showRestaurants') }}'><< Back to restaurants</a></li>
+      					</ul>
+      				</div>
+        		</div>
+      		</div>
+    	</div>
+    	<div class="container">
+    		<div class = 'pane'>
+				<form action="{{ url_for('editRestaurant',restaurant_id = restaurant_id)}}" method = 'post'>
+					<dl>
+						<dt>Name:</dt>
+							<dd><input type ='text' size='30' name='name' placeholder = '{{item.name}}'></dd>
+						<dt>Address:</dt>
+							<dd><textarea name = 'address' rows='5' cols='40' placeholder = '{{item.address}}'></textarea></dd>
+						<dt>Phone:</dt>
+							<dd><input type = 'text' size = '10' name='phone' placeholder = '{{item.phone}}'></dd>
+						<dt>Website:</dt>
+							<dd><input type = 'text' size = '50' name='website' placeholder = '{{item.website}}'></dd>
+						<dt>Cousine:</dt>
+							<dd><input type = 'text' size = '20' name='cousine' placeholder = '{{item.cousine}}'></dd>
+						<dt>Url on img:</dt>
+							<dd><input type = 'text' size = '20' name='img' placeholder = '{{item.img}}'></dd>
+					</dl>
+					<input type='submit' value='Edit'>
+					<a href = '{{url_for('showRestaurants')}}'> Cancel </a>
+				</form>
+			</div>
+    	</div>
 	</body>
 </html>

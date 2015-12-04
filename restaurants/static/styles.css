@@ -2,6 +2,16 @@ body {
     padding-top: 80px;
 }
 
+h2 {
+    font-size: 1.2em;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -51,10 +61,6 @@ body {
 .restaurant-tile:hover {
     background-color: #EEE;
     cursor: pointer;
-}
-
-h2 {
-    font-size: 1.2em;
 }
 
 .name {

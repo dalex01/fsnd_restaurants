@@ -21,8 +21,12 @@ def showMenu(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
-        newItem = MenuItem(
-            name=request.form['name'], restaurant_id=restaurant_id)
+        newItem = MenuItem(name=request.form['name'],
+                           description=request.form['description'],
+                           price=request.form['price'],
+                           course=request.form['course'],
+                           img=request.form['img'],
+                           restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
         flash("new menu item created!")
@@ -32,12 +36,23 @@ def newMenuItem(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
+    print restaurant_id
+    print menu_id
     editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
+        if request.form['description']:
+            editedItem.description=request.form['description']
+        if request.form['price']:
+            editedItem.price=request.form['price']
+        if request.form['course']:
+            editedItem.course=request.form['course']
+        if request.form['img']:
+            editedItem.img=request.form['img']
         session.add(editedItem)
         session.commit()
+        flash("menu item edited!")
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template('editMenuItem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=editedItem)
@@ -65,4 +80,5 @@ def restaurantMenuJSON(restaurant_id):
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def menuItemJSON(restaurant_id, menu_id):
     item = session.query(MenuItem).filter_by(id=menu_id).one()
-    return jsonify(MenuItem=item.serialize)
+    return jso
+    nify(MenuItem=item.serialize)
