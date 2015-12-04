@@ -7,6 +7,26 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key = True)
+    name =Column(String(80), nullable = False)
+    email = Column(String(80), nullable = False)
+    img = Column(String(120))
+
+    # We added this serialize function to be able to send JSON objects in a
+    # serializable format
+    @property
+    def serialize(self):
+
+        return {
+            'name': self.name,
+            'email': self.email,
+            'id': self.id,
+            'img': self.img
+        }
+
 class Restaurant(Base):
     __tablename__ = 'restaurant'
 
@@ -60,26 +80,6 @@ class MenuItem(Base):
             'id': self.id,
             'price': self.price,
             'course': self.course,
-            'img': self.img
-        }
-
-class User(Base):
-    __tablename__ = 'user'
-
-    id = Column(Integer, primary_key = True)
-    name =Column(String(80), nullable = False)
-    email = Column(String(80), nullable = False)
-    img = Column(String(120))
-
-    # We added this serialize function to be able to send JSON objects in a
-    # serializable format
-    @property
-    def serialize(self):
-
-        return {
-            'name': self.name,
-            'email': self.email,
-            'id': self.id,
             'img': self.img
         }
 
