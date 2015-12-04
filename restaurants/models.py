@@ -17,6 +17,8 @@ class Restaurant(Base):
     website = Column(String(120))
     cousine = Column(String(120))
     img = Column(String(120))
+    user_id = Column(Integer,ForeignKey('user.id'))
+    user = relationship(User)
 
     # We added this serialize function to be able to send JSON objects in a
     # serializable format
@@ -36,14 +38,16 @@ class Restaurant(Base):
 class MenuItem(Base):
     __tablename__ = 'menu_item'
 
-    name =Column(String(80), nullable = False)
     id = Column(Integer, primary_key = True)
+    name =Column(String(80), nullable = False)
     description = Column(String(250))
     price = Column(String(8))
     course = Column(String(250))
     img = Column(String(120))
     restaurant_id = Column(Integer,ForeignKey('restaurant.id'))
     restaurant = relationship(Restaurant)
+    user_id = Column(Integer,ForeignKey('user.id'))
+    user = relationship(User)
 
     # We added this serialize function to be able to send JSON objects in a
     # serializable format
@@ -56,6 +60,26 @@ class MenuItem(Base):
             'id': self.id,
             'price': self.price,
             'course': self.course,
+            'img': self.img
+        }
+
+class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key = True)
+    name =Column(String(80), nullable = False)
+    email = Column(String(80), nullable = False)
+    img = Column(String(120))
+
+    # We added this serialize function to be able to send JSON objects in a
+    # serializable format
+    @property
+    def serialize(self):
+
+        return {
+            'name': self.name,
+            'email': self.email,
+            'id': self.id,
             'img': self.img
         }
 
