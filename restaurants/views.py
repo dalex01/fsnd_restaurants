@@ -198,25 +198,25 @@ def editRestaurant(restaurant_id):
     if editedRestaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to edit this restaurant. \
                 Please create your own restaurant in order to edit.')</script><body onload='myFunction()''>"
-	if request.method == 'POST':
-		if request.form['name']:
-			editedRestaurant.name = request.form['name']
-		if request.form['address']:
-			editedRestaurant.address=request.form['address']
-		if request.form['phone']:
-			editedRestaurant.phone=request.form['phone']
-		if request.form['website']:
-			editedRestaurant.website=request.form['website']
-		if request.form['cousine']:
-			editedRestaurant.cousine=request.form['cousine']
-		if request.form['img']:
-			editedRestaurant.img=request.form['img']
-		session.add(editedRestaurant)
-		session.commit()
-		flash("restaurant edited!")
-		return redirect(url_for('showRestaurants'))
-	else:
-		return render_template('editRestaurant.html', restaurant_id=restaurant_id, item=editedRestaurant)
+    if request.method == 'POST':
+        if request.form['name']:
+            editedRestaurant.name = request.form['name']
+        if request.form['address']:
+            editedRestaurant.address=request.form['address']
+        if request.form['phone']:
+            editedRestaurant.phone=request.form['phone']
+        if request.form['website']:
+            editedRestaurant.website=request.form['website']
+        if request.form['cousine']:
+            editedRestaurant.cousine=request.form['cousine']
+        if request.form['img']:
+            editedRestaurant.img=request.form['img']
+        session.add(editedRestaurant)
+        session.commit()
+        flash("restaurant edited!")
+        return redirect(url_for('showRestaurants'))
+    else:
+        return render_template('editRestaurant.html', restaurant_id=restaurant_id, item=editedRestaurant)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
@@ -227,13 +227,13 @@ def deleteRestaurant(restaurant_id):
     if restaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this restaurant. \
                 Please create your own restaurant in order to delete.')</script><body onload='myFunction()''>"
-	if request.method == 'POST':
-		session.delete(restaurant)
-		session.commit()
-		flash("restaurant deleted!")
-		return redirect(url_for('showRestaurants'))
-	else:
-		return render_template('deleteRestaurant.html', restaurant_id=restaurant_id, item=restaurant)
+    if request.method == 'POST':
+        session.delete(restaurant)
+        session.commit()
+        flash("restaurant deleted!")
+        return redirect(url_for('showRestaurants'))
+    else:
+        return render_template('deleteRestaurant.html', restaurant_id=restaurant_id, item=restaurant)
 
 
 @app.route('/restaurants/JSON')
@@ -256,7 +256,10 @@ def showMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     creator = getUserInfo(restaurant.user_id)
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
-    if 'username' not in login_session or creator != login_session['user_id']:
+    print login_session
+    print login_session['user_id']
+    print creator
+    if 'username' not in login_session or creator.id != login_session['user_id']:
         return render_template('publicmenu.html', restaurant = restaurant, items = items, creator=creator, STATE=state)
     else:
         return render_template('menu.html', restaurant = restaurant, items = items, creator=creator)
@@ -312,17 +315,17 @@ def editMenuItem(restaurant_id, menu_id):
 def deleteMenuItem(restaurant_id, menu_id):
     if 'username' not in login_session:
         return redirect('/login')
-	item = session.query(MenuItem).filter_by(id=menu_id).one()
+    item = session.query(MenuItem).filter_by(id=menu_id).one()
     if item.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this menu item. \
                 Please create your own in order to delete.')</script><body onload='myFunction()''>"
-	if request.method == 'POST':
-		session.delete(item)
-		session.commit()
-		flash("menu item deleted!")
-		return redirect(url_for('showMenu', restaurant_id=restaurant_id))
-	else:
-		return render_template('deleteMenuItem.html', item=item, restaurant_id=restaurant_id)
+    if request.method == 'POST':
+        session.delete(item)
+        session.commit()
+        flash("menu item deleted!")
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+    else:
+        return render_template('deleteMenuItem.html', item=item, restaurant_id=restaurant_id)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
