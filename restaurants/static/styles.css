@@ -21,6 +21,10 @@ ul {
     width: 100%;
 }
 
+.nv-right {
+    margin-top: 8px;
+}
+
 @media screen and (min-width: 450px) {
     .restaurant-tile {
         margin-bottom: 20px;
