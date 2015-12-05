@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Restaurant, MenuItem, User
 from restaurants import app
-import httplib2, json, requests, random, string
+import httplib2, json, requests, random, string, os
 
 
 engine = create_engine('sqlite:///restaurantmenu.db')
@@ -13,8 +13,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
-CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+CLIENT_ID = json.loads(open(os.path.join(os.path.dirname(__file__), "instance/client_secrets.json"), 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu App"
 
 
