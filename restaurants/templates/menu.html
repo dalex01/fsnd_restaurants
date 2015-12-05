@@ -11,22 +11,10 @@
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	</head>
 	<body>
-
-		<div class="modal" id="trailer">
-      		<div class="modal-dialog">
-        		<div class="modal-content">
-          			<a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
-            			<img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
-          			</a>
-          			<div class="scale-media" id="trailer-video-container">
-          			</div>
-        		</div>
-      		</div>
-    	</div>
     	<!-- Main Page Content -->
     	<div class="container">
       		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        		<div class="container">
+        		<div class="container-fluid">
           			<div class="navbar-header">
           				<a class="navbar-brand" href="#">{{ restaurant.name }} Menu</a>
           			</div>
@@ -35,6 +23,9 @@
       						<li><a href = '{{url_for('showRestaurants') }}'><< Back to restaurants</a></li>
       						<li><a href = '{{url_for('newMenuItem', restaurant_id = restaurant.id) }}'>Create New Item</a></li>
       					</ul>
+      					<ul class="nav navbar-nav navbar-right">
+      						<li><a href='{{url_for('gdisconnect') }}'>Logout</a></li>
+        				</ul>
       				</div>
         		</div>
       		</div>

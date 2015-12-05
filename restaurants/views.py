@@ -58,7 +58,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets(os.path.join(os.path.dirname(__file__), 'instance/client_secrets.json'), scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -126,7 +126,6 @@ def gconnect():
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
-    print "done!"
     return output
 
 
@@ -153,7 +152,7 @@ def gdisconnect():
 		del login_session['picture']
 		response = make_response(json.dumps('Successfully disconnected.'), 200)
 		response.headers['Content-Type'] = 'application/json'
-		return response
+		return redirect('/restaurants')
 	else:
 		response = make_response(json.dumps('Failed to revoke token for given user.', 400))
 		response.headers['Content-Type'] = 'application/json'
@@ -163,9 +162,11 @@ def gdisconnect():
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    login_session['state'] = state
     restaurants = session.query(Restaurant).all()
     if 'username' not in login_session:
-        return render_template('publicrestaurants.html', restaurants = restaurants)
+        return render_template('publicrestaurants.html', restaurants = restaurants, STATE=state)
     else:
         return render_template('restaurants.html', restaurants = restaurants)
 
@@ -250,11 +251,13 @@ def restaurantJSON(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    login_session['state'] = state
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     creator = getUserInfo(restaurant.user_id)
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
     if 'username' not in login_session or creator != login_session['user_id']:
-        return render_template('publicmenu.html', restaurant = restaurant, items = items, creator=creator)
+        return render_template('publicmenu.html', restaurant = restaurant, items = items, creator=creator, STATE=state)
     else:
         return render_template('menu.html', restaurant = restaurant, items = items, creator=creator)
 
