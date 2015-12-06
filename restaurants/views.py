@@ -352,7 +352,7 @@ def editRestaurant(restaurant_id):
     # Alert if logged in user doesn't have permission to edit restaurant (restaurant was created by some other user)
     if editedRestaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to edit this restaurant. \
-                Please create your own restaurant in order to edit.')</script><body onload='myFunction()''>"
+                Please create your own restaurant in order to edit.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         # Check if particular field was changed
         if request.form['name']:
@@ -391,7 +391,7 @@ def deleteRestaurant(restaurant_id):
     # Alert if logged in user doesn't have permission to delete restaurant (restaurant was created by some other user)
     if restaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this restaurant. \
-                Please create your own restaurant in order to delete.')</script><body onload='myFunction()''>"
+                Please create your own restaurant in order to delete.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         session.delete(restaurant)
         session.commit()
@@ -514,7 +514,7 @@ def editMenuItem(restaurant_id, menu_id):
     # Alert if logged in user doesn't have permission to edit menu item (menu item was created by some other user)
     if editedItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to edit this menu item. \
-                Please create your own in order to edit.')</script><body onload='myFunction()''>"
+                Please create your own in order to edit.');}</script><body onload='myFunction()''>"
     # Check if particular field was changed
     if request.method == 'POST':
         if request.form['name']:
@@ -552,7 +552,7 @@ def deleteMenuItem(restaurant_id, menu_id):
     # Alert if logged in user doesn't have permission to delete menu item (menu item was created by some other user)
     if item.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this menu item. \
-                Please create your own in order to delete.')</script><body onload='myFunction()''>"
+                Please create your own in order to delete.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         session.delete(item)
         session.commit()
