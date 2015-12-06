@@ -21,7 +21,7 @@ class User(Base):
     id = Column(Integer, primary_key = True)
     name =Column(String(80), nullable = False)
     email = Column(String(80), nullable = False)
-    img = Column(String(120))
+    img = Column(String(250))
 
     # We added this serialize function to be able to send JSON objects in a
     # serializable format
@@ -56,9 +56,10 @@ class Restaurant(Base):
     phone = Column(String(20))
     website = Column(String(120))
     cousine = Column(String(120))
-    img = Column(String(120))
+    img = Column(String(250))
     user_id = Column(Integer,ForeignKey('user.id'))
     user = relationship(User)
+    menuItems = relationship("MenuItem", cascade="all, delete-orphan")
 
     # We added this serialize function to be able to send JSON objects in a
     # serializable format
@@ -92,10 +93,10 @@ class MenuItem(Base):
 
     id = Column(Integer, primary_key = True)
     name =Column(String(80), nullable = False)
-    description = Column(String(250))
+    description = Column(String(500))
     price = Column(String(8))
     course = Column(String(250))
-    img = Column(String(120))
+    img = Column(String(250))
     restaurant_id = Column(Integer,ForeignKey('restaurant.id'))
     restaurant = relationship(Restaurant)
     user_id = Column(Integer,ForeignKey('user.id'))
@@ -115,5 +116,6 @@ class MenuItem(Base):
             'img': self.img
         }
 
-engine = create_engine('sqlite:///restaurantmenu.db')
+#engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('postgres://oayymjoacnwrzl:6z1aa9scW0slIYh-B_V5VKGKc-@ec2-46-137-72-123.eu-west-1.compute.amazonaws.com:5432/d1ve6bgi7vcigp')
 Base.metadata.create_all(engine)

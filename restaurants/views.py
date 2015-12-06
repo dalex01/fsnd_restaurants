@@ -9,11 +9,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Restaurant, MenuItem, User
 from restaurants import app
-from dict2xml import dict2xml as xmlify
 import httplib2, json, requests, random, string, os
 
 # Connect to DB and create session
-engine = create_engine('sqlite:///restaurantmenu.db')
+#engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('postgres://oayymjoacnwrzl:6z1aa9scW0slIYh-B_V5VKGKc-@ec2-46-137-72-123.eu-west-1.compute.amazonaws.com:5432/d1ve6bgi7vcigp')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
