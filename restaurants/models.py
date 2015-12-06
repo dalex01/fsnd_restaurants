@@ -8,6 +8,14 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 class User(Base):
+    """
+    User DB table
+    Fields:
+        id: user id (primary key)
+        name: user name
+        email: user email
+        img: user image
+    """
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key = True)
@@ -28,6 +36,18 @@ class User(Base):
         }
 
 class Restaurant(Base):
+    """
+    Restaurant DB table
+    Fields:
+        id: restaurant id (primary key)
+        name: restaurant name
+        address: restaurant address
+        phone: restaurant phone
+        website: restaurant website
+        cousine: restaurant cousine
+        img: restaurant img
+        user_id: user id who create this restaurant (foreign key: table - User, field - id )
+    """
     __tablename__ = 'restaurant'
 
     id = Column(Integer, primary_key=True)
@@ -56,6 +76,18 @@ class Restaurant(Base):
         }
 
 class MenuItem(Base):
+    """
+    Menu Item DB table
+    Fields:
+        id: menu item id (primary key)
+        name: menu item name
+        description: menu item description
+        price: menu item price
+        course: menu item course
+        restaurant_id: restaurant id for which this menu item belongs (foreign key: table - Restaurant, field - id)
+        img: menu item img
+        user_id: user id who create this menu item (foreign key: table - User, field - id)
+    """
     __tablename__ = 'menu_item'
 
     id = Column(Integer, primary_key = True)

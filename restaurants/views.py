@@ -1,3 +1,7 @@
+"""
+THis file provide all routes of the application
+"""
+# Import all necessary modules
 from flask import Flask, render_template, url_for, redirect, request, flash, jsonify, make_response
 from flask import session as login_session
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
@@ -5,20 +9,24 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Restaurant, MenuItem, User
 from restaurants import app
+from dict2xml import dict2xml as xmlify
 import httplib2, json, requests, random, string, os
 
-
+# Connect to DB and create session
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-CLIENT_ID = json.loads(open(os.path.join(os.path.dirname(__file__), "instance/client_secrets.json"), 'r').read())['web']['client_id']
-APPLICATION_NAME = "Restaurant Menu App"
 
-
-# User Helper Functions
 def createUser(login_session):
+    """
+    Create a new user based on information from current session
+    Input:
+        login_session - dictionary with current user information
+    Output:
+        User ID.
+    """
     newUser = User(name=login_session['username'], email=login_session['email'], img=login_session['picture'])
     session.add(newUser)
     session.commit()
@@ -27,11 +35,26 @@ def createUser(login_session):
 
 
 def getUserInfo(user_id):
+    """
+    Get user information from DB based on user ID
+    Input:
+        user_id - user ID
+    Output:
+        Object of User class.
+    """
     user = session.query(User).filter_by(id=user_id).one()
     return user
 
 
 def getUserID(email):
+    """
+    Get user ID form DB based on user email
+    Input:
+        email - user email
+    Output:
+        None - if user with provided email is not in DB
+        user ID - if user with provided email is in DB
+    """
     try:
         user = session.query(User).filter_by(email=email).one()
         return user.id
@@ -41,13 +64,23 @@ def getUserID(email):
 
 @app.route('/login')
 def showLogin():
-	state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
-	login_session['state'] = state
-	return render_template('login.html', STATE=state)
+    """
+    Login page
+    Output:
+        Rendered login page
+    """
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    login_session['state'] = state
+    return render_template('login.html', STATE=state)
 
 
 @app.route('/fbconnect', methods=['POST'])
 def fbconnect():
+    """
+    Facebook connect page
+    Output:
+        output of Facebook login attempt depending on login status
+    """
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -107,6 +140,9 @@ def fbconnect():
 
 @app.route('/fbdisconnect')
 def fbdisconnect():
+    """
+    Logout if was logged in using Facebook account
+    """
     facebook_id = login_session['facebook_id']
     # The access token must me included to successfully logout
     access_token = login_session['access_token']
@@ -118,6 +154,12 @@ def fbdisconnect():
 
 @app.route('/gconnect', methods=['POST'])
 def gconnect():
+    """
+    Google connect page
+    Output:
+        output of Google login attempt depending on login status
+    """
+    CLIENT_ID = json.loads(open(os.path.join(os.path.dirname(__file__), "instance/client_secrets.json"), 'r').read())['web']['client_id']
     # Validate state token
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
@@ -202,6 +244,9 @@ def gconnect():
 
 @app.route('/gdisconnect')
 def gdisconnect():
+    """
+    Logout if was logged in using Google account
+    """
     # Only disconnect a connected user.
     credentials = login_session.get('credentials')
     if credentials is None:
@@ -222,6 +267,11 @@ def gdisconnect():
 # Disconnect based on provider
 @app.route('/disconnect')
 def disconnect():
+    """
+    Main logout function which:
+        call Google or Facebook logout depending on login method
+        clear all current session information
+    """
     if 'provider' in login_session:
         if login_session['provider'] == 'google':
             gdisconnect()
@@ -245,20 +295,33 @@ def disconnect():
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
+    """
+    All restaurants page
+    Output:
+        Rendered restaurants page
+    """
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
     restaurants = session.query(Restaurant).all()
+    # Render public template if user is not logged in
     if 'username' not in login_session:
         return render_template('publicrestaurants.html', restaurants = restaurants, STATE=state)
+    # Render normal template if user logged in
     else:
         return render_template('restaurants.html', restaurants = restaurants)
 
 
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
 def newRestaurant():
-	if 'username' not in login_session:
-		return redirect('/login')
-	if request.method == 'POST':
+    """
+    New restaurant page
+    Output:
+        Render new restaurant creation page or populate entered info into DB and redirect to all restaurants page
+    """
+    # Redirect to login page if user is not logged in
+    if 'username' not in login_session:
+        return redirect('/login')
+    if request.method == 'POST':
 		newRestaurant = Restaurant(name=request.form['name'],
 								   address=request.form['address'],
 								   phone=request.form['phone'],
@@ -269,19 +332,29 @@ def newRestaurant():
 		session.commit()
 		flash("new restaurant created!")
 		return redirect(url_for('showRestaurants'))
-	else:
+    else:
 		return render_template('newRestaurant.html')
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
+    """
+    Edit restaurant info page
+    Input:
+        restaurant_id - restaurant id to edit
+    Output:
+        Render edit restaurant page or update entered info into DB and redirect to all restaurants page
+    """
+    # Redirect to login page if user is not logged in
     if 'username' not in login_session:
         return redirect('/login')
     editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    # Alert if logged in user doesn't have permission to edit restaurant (restaurant was created by some other user)
     if editedRestaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to edit this restaurant. \
                 Please create your own restaurant in order to edit.')</script><body onload='myFunction()''>"
     if request.method == 'POST':
+        # Check if particular field was changed
         if request.form['name']:
             editedRestaurant.name = request.form['name']
         if request.form['address']:
@@ -304,9 +377,18 @@ def editRestaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
+    """
+    Delete restaurant info page
+    Input:
+        restaurant_id - restaurant id to delete
+    Output:
+        Render delete restaurant page or delete restaurant and redirect to all restaurants page
+    """
+    # Redirect to login page if user is not logged in
     if 'username' not in login_session:
         return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    # Alert if logged in user doesn't have permission to delete restaurant (restaurant was created by some other user)
     if restaurant.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this restaurant. \
                 Please create your own restaurant in order to delete.')</script><body onload='myFunction()''>"
@@ -321,35 +403,83 @@ def deleteRestaurant(restaurant_id):
 
 @app.route('/restaurants/JSON')
 def restaurantsJSON():
+    """
+    Create JSON endpoint for all restaurants
+    """
     restaurants = session.query(Restaurant).all()
     return jsonify(Restaurant=[i.serialize for i in restaurants])
 
 
-@app.route('/restaurants/<int:restaurant_id>/JSON')
+@app.route('/restaurant/<int:restaurant_id>/JSON')
 def restaurantJSON(restaurant_id):
-    resaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    return jsonify(Restaurant=resaurant.serialize)
+    """
+    Create JSON endpoint for particular restaurant
+    Input:
+        restaurant_id - restaurant's ID for which we want to display endpoint
+    """
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    return jsonify(Restaurant=restaurant.serialize)
+
+
+@app.route('/restaurants/XML')
+def restaurantsXML():
+    """
+    Create XML endpoint for all restaurants
+    """
+    restaurants = session.query(Restaurant).all()
+    xml = render_template('restaurants.xml', restaurants=restaurants)
+    response = make_response(xml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+
+@app.route('/restaurant/<int:restaurant_id>/XML')
+def restaurantXML(restaurant_id):
+    """
+    Create XML endpoint for particular restaurant
+    Input:
+        restaurant_id - restaurant's ID for which we want to display endpoint
+    """
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    xml = render_template('restaurant.xml', restaurant=restaurant)
+    response = make_response(xml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
+    """
+    Menu page for particular restaurant
+    Input:
+        restaurant_id - restaurant id for which we want to render menu
+    Output:
+        Rendered restaurants page
+    """
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     creator = getUserInfo(restaurant.user_id)
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
-    print login_session
-    print login_session['user_id']
-    print creator
+    # Render public template if user is not logged in or restaurant was created by some other user
     if 'username' not in login_session or creator.id != login_session['user_id']:
         return render_template('publicmenu.html', restaurant = restaurant, items = items, creator=creator, STATE=state)
+    # Render normal template otherwise
     else:
         return render_template('menu.html', restaurant = restaurant, items = items, creator=creator)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
+    """
+    New menu item page
+    Input:
+        restaurant_id - restaurant id for which we want to create new menu item
+    Output:
+        Render new menu item creation page or populate entered info into DB and redirect to this restaurant's menu page
+    """
+    # Redirect to login page if user is not logged in
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
@@ -369,12 +499,23 @@ def newMenuItem(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
+    """
+    Edit menu item info page
+    Input:
+        restaurant_id - restaurant id which menu item we want to edit
+        menu_id - menu item id to edit
+    Output:
+        Render edit menu item page or update entered info into DB and redirect to this restaurant's menu page
+    """
+    # Redirect to login page if user is not logged in
     if 'username' not in login_session:
         return redirect('/login')
     editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    # Alert if logged in user doesn't have permission to edit menu item (menu item was created by some other user)
     if editedItem.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to edit this menu item. \
                 Please create your own in order to edit.')</script><body onload='myFunction()''>"
+    # Check if particular field was changed
     if request.method == 'POST':
         if request.form['name']:
             editedItem.name = request.form['name']
@@ -396,9 +537,19 @@ def editMenuItem(restaurant_id, menu_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
+    """
+    Delete menu item info page
+    Input:
+        restaurant_id - restaurant id which menu item we want to delete
+        menu_id - menu item id to delete
+    Output:
+        Render delete menu item page or delete menu item and redirect to this restaurant's menu page
+    """
+    # Redirect to login page if user is not logged in
     if 'username' not in login_session:
         return redirect('/login')
     item = session.query(MenuItem).filter_by(id=menu_id).one()
+    # Alert if logged in user doesn't have permission to delete menu item (menu item was created by some other user)
     if item.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this menu item. \
                 Please create your own in order to delete.')</script><body onload='myFunction()''>"
@@ -413,13 +564,52 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/JSON')
 def restaurantMenuJSON(restaurant_id):
+    """
+    Create JSON endpoint for particular Menu
+    Input:
+        restaurant_id - restaurant's ID for which menu we want to display endpoint
+    """
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    items = session.query(MenuItem).filter_by(
-        restaurant_id=restaurant_id).all()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
     return jsonify(MenuItems=[i.serialize for i in items])
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def menuItemJSON(restaurant_id, menu_id):
+    """
+    Create JSON endpoint for particular menu item
+    Input:
+        restaurant_id - restaurant's ID for which we want to display endpoint
+        menu_id - menu item id to display
+    """
     item = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(MenuItem=item.serialize)
+
+@app.route('/restaurant/<int:restaurant_id>/menu/XML')
+def restaurantMenuXML(restaurant_id):
+    """
+    Create XML endpoint for particular Menu
+    Input:
+        restaurant_id - restaurant's ID for which menu we want to display endpoint
+    """
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    xml = render_template('menu.xml', restaurant_id=restaurant_id, items=items)
+    response = make_response(xml)
+    response.headers["Content-Type"] = "application/xml"
+    return response
+
+
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/XML')
+def menuItemXML(restaurant_id, menu_id):
+    """
+    Create XML endpoint for particular menu item
+    Input:
+        restaurant_id - restaurant's ID for which we want to display endpoint
+        menu_id - menu item id to display
+    """
+    item = session.query(MenuItem).filter_by(id=menu_id).one()
+    xml = render_template('menuItem.xml', restaurant_id=restaurant_id, item=item)
+    response = make_response(xml)
+    response.headers["Content-Type"] = "application/xml"
+    return response

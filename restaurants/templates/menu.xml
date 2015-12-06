@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<author>
+		<name>Restaurants Menu App</name>
+	</author>
+	<title type="text">Menu</title>
+	<link rel="self" href="/restaurant/{{restaurant_id}}//menu">/restaurant/{{restaurant_id}}/menu</link>
+	{% for item in items %}
+	<entry>
+		<id type="text">{{item.id}}</id>
+		<title type="text">{{item.name}}</title>
+		<updated>None</updated>
+		<description type="text">{{item.description}}</description>
+		<price type="text">{{item.price}}</price>
+		<course type="text">{{item.website}}</course>
+		<img type="text">{{item.img}}</img>
+	</entry>
+	{% endfor %}
+</feed>

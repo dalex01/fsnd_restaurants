@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<author>
+		<name>Restaurants Menu App</name>
+	</author>
+	<link rel="self" href="/">/</link>
+	<title type="text">Restaurants</title>
+	{% for restaurant in restaurants %}
+	<entry>
+		<id type="text">{{restaurant.id}}</id>
+		<title type="text">{{restaurant.name}}</title>
+		<updated>None</updated>
+		<address type="text">{{restaurant.address}}</address>
+		<phone type="text">{{restaurant.phone}}</phone>
+		<website type="text">{{restaurant.website}}</website>
+		<cousine type="text">{{restaurant.cousine}}</cousine>
+		<img type="text">{{restaurant.img}}</img>
+	</entry>
+	{% endfor %}
+</feed>
