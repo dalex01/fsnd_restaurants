@@ -1,3 +1,6 @@
+"""
+This file provide DB structure of the application
+"""
 import os
 import sys
 from sqlalchemy import Column, ForeignKey, Integer, String
