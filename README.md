@@ -8,7 +8,7 @@ Project was developed and reviewed according to this [rubric](http://imgur.com/b
 
 ## How to use
 
-TBD
+App is deployed on heroku.com servers: http://desolate-bayou-9779.herokuapp.com/
 
 ## Features
 
