@@ -23,7 +23,7 @@ App allows:
 
 ## Technologies used
 
-1. Flask framework
+1. Flask framework (ver 0.9)
 2. SQLite DB
 3. SQLAlchemy python library
 4. oauth2client python library
