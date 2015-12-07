@@ -7,7 +7,7 @@ from flask import session as login_session
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 from werkzeug import secure_filename
 from models import Base, Restaurant, MenuItem, User
-from restaurants import app
+from restaurants import app, csrf
 from restaurants.helpers import dbConnect, createUser, getUserID, getUserInfo, login_required, allowed_file
 import httplib2, json, requests, random, string, os
 
@@ -28,6 +28,7 @@ def showLogin():
 
 
 @app.route('/fbconnect', methods=['POST'])
+@csrf.exempt
 def fbconnect():
     """
     Facebook connect page
@@ -106,6 +107,7 @@ def fbdisconnect():
 
 
 @app.route('/gconnect', methods=['POST'])
+@csrf.exempt
 def gconnect():
     """
     Google connect page
