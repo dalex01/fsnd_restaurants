@@ -25,6 +25,13 @@ ul {
     margin-top: 8px;
 }
 
+
+.pane {
+    width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 @media screen and (min-width: 450px) {
     .restaurant-tile {
         margin-bottom: 20px;
@@ -83,7 +90,7 @@ ul {
 }
 
 .loginButtons {
-    width: 450px;
+    width: 150px;
     text-align: center;
     margin-right: auto;
     margin-left: auto;

@@ -1,151 +1,35 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<title>Restaurants</title>
-  		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-    	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-    	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-      <script src="//apis.google.com/js/platform.js?onload=start"> </script>
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
-    	<!-- Main Page Content -->
-    	<div class="container">
-      		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        		<div class="container=fluid">
-          			<div class="navbar-header">
-          				<a class="navbar-brand" href="#">{{ restaurant.name }} Menu</a>
-          			</div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                      <li><a href = '{{url_for('showRestaurants') }}'><< Back to restaurants</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right nv-right">
-                        <li>
-                            <div id="signInButton">
-                                <span class="g-signin"
-                                data-scope="openid email"
-                                data-clientid="491700380670-39drtnm1d8rgqrm5d03ggtcmaepgalc5.apps.googleusercontent.com"
-                                data-redirecturi="postmessage"
-                                data-accesstype="offline"
-                                data-cookiepolicy="single_host_origin"
-                                data-callback="signInCallback"
-                                data-approvalprompt="force">
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <button>
-                                <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-                                    <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-                                </fb:login-button>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-        		</div>
-      		</div>
-    	</div>
-    	<div class="container">
-        <div id="result box"></div>
-    		<div class = 'box flash'>
-		    	{% with messages = get_flashed_messages() %}
-      				{% if messages %}
-          		        <ul>
-        					{% for message in messages %}
-            					<li> <strong> {{ message }} </strong> </li>
-        					{% endfor %}
-        				</ul>
-        			{% endif %}
-    			{% endwith %}
-			</div>
-			{% for i in items %}
-      		<div class="box restaurant-tile text-center">
-      			  <img src="{{i.img}}">
-    			   	<h2 class = 'name'>{{i.name}}</h2>
-    				  <div class = 'course'><strong>Course:</strong> {{i.course}}</div>
-    				  <div class = 'price'><strong>Price:</strong> {{i.price}}</div>
-    				  <div class = 'description'><strong>Description:</strong> {{i.description}}</div>
-				  </div>
-			{% endfor %}
-    	</div>
-      <script>
-            function signInCallback(authResult) {
-                if (authResult['code']) {
-                    // Hide the sign-in button now that the user is authorized
-                    //$('#signinButton').attr('style', 'display: none');
-                    // Send the one-time-use code to the server,
-                    // if the server responds, write a 'login successful' message to the web page
-                    // and then redirect back to the main restaurants page
-                    $.ajax({
-                        type: 'POST',
-                        url: '/gconnect?state={{STATE}}',
-                        processData: false,
-                        data: authResult['code'],
-                        contentType: 'application/octet-stream; charset=utf-8',
-                        success: function(result) {
-                            // Handle or verify the server response if necessary.
-                            if (result) {
-                                $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
-                                setTimeout(function() {
-                                    window.location.href = "/restaurants";
-                                }, 4000);
-                            } else if (authResult['error']) {
-                                console.log('There was an error: ' + authResult['error']);
-                            } else {
-                                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
-                            }
-                        }
-                    });
-                }
-            }
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId      : '548209065336971',
-                    xfbml      : true,
-                    version    : 'v2.5'
-                });
-            };
-
-            (function(d, s, id){
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {return;}
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-
-            // Here we run a very simple test of the Graph API after login is
-            // successful.  See statusChangeCallback() for when this call is made.
-            function sendTokenToServer() {
-                var access_token = FB.getAuthResponse()['accessToken'];
-                console.log(access_token)
-                console.log('Welcome!  Fetching your information.... ');
-                FB.api('/me', function(response) {
-                    console.log('Successful login for: ' + response.name);
-                    $.ajax({
-                        type: 'POST',
-                        url: '/fbconnect?state={{STATE}}',
-                        processData: false,
-                        data: access_token,
-                        contentType: 'application/octet-stream; charset=utf-8',
-                        success: function(result) {
-                            // Handle or verify the server response if necessary.
-                            if (result) {
-                                $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
-                                setTimeout(function() {
-                                    window.location.href = "/restaurants";
-                                }, 4000);
-                            } else {
-                                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
-                            }
-                        }
-                    });
-                });
-            }
-        </script>
-	</body>
-</html>
+{% extends "layout.html" %}
+{% block menu %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href = '{{url_for('showRestaurants') }}'><< Back to restaurants</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href='{{url_for('showLogin') }}'>Login</a></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block flash %}
+    <div class = 'box flash'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li> <strong> {{ message }} </strong> </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}
+{% block content %}
+    {% for i in items %}
+        <div class="box restaurant-tile text-center">
+            <img src="{{i.img}}">
+            <h2 class = 'name'>{{i.name}}</h2>
+            <div class = 'course'><strong>Course:</strong> {{i.course}}</div>
+            <div class = 'price'><strong>Price:</strong> {{i.price}}</div>
+            <div class = 'description'><strong>Description:</strong> {{i.description}}</div>
+        </div>
+    {% endfor %}
+{% endblock %}

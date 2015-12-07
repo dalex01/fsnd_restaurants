@@ -1,60 +1,39 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-  		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  		<meta name="viewport" content="width=device-width, initial-scale=1">
-  		<title>Restaurants</title>
-  		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-    	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-    	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
-    	<!-- Main Page Content -->
-    	<div class="container">
-      		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        		<div class="container-fluid">
-          			<div class="navbar-header">
-          				<a class="navbar-brand" href="/">Restaurant's Menu Catalog</a>
-          			</div>
-          			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      					<ul class="nav navbar-nav">
-      						<li><a href = '{{url_for('newRestaurant') }}'>Create New Restaurant</a></li>
-      					</ul>
-      					<ul class="nav navbar-nav navbar-right">
-      						<li><a href='{{url_for('disconnect') }}'>Logout</a></li>
-        				</ul>
-      				</div>
-        		</div>
-      		</div>
-    	</div>
-    	<div class="container">
-    		<div class = 'box flash'>
-		    	{% with messages = get_flashed_messages() %}
-      				{% if messages %}
-          		        <ul>
-        					{% for message in messages %}
-            					<li> <strong> {{ message }} </strong> </li>
-        					{% endfor %}
-        				</ul>
-        			{% endif %}
-    			{% endwith %}
-			</div>
-			{% for i in restaurants %}
-      			<!--<div class="col-md-6 col-lg-4 restaurant-tile text-center">-->
-      			<div class="box restaurant-tile text-center">
-      				<a href='{{url_for('showMenu',restaurant_id = i.id)}}'><img src="{{i.img}}"></a>
-    				<a href='{{url_for('showMenu',restaurant_id = i.id)}}'><h2>{{i.name}}</h2></a>
-    				<div><strong>Address:</strong> {{i.address}}</div>
-    				<div><strong>Phone:</strong> {{i.phone}}</div>
-    				<div><strong>Cousine:</strong> {{i.cousine}}</div>
-    				<div class = "editdeletepane">
-						<a href='{{url_for('editRestaurant',restaurant_id = i.id)}}' >Edit</a>
-						<a href='{{url_for('deleteRestaurant', restaurant_id = i.id)}}' >Delete</a>
-					</div>
-				</div>
-			{% endfor %}
-    	</div>
-	</body>
-</html>
+{% extends "layout.html" %}
+{% block menu %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a href = '{{url_for('newRestaurant') }}'>Create New Restaurant</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href='{{url_for('disconnect') }}'>Logout</a></li>
+        </ul>
+    </div>
+{% endblock %}
+{% block flash %}
+	<div class = 'box flash'>
+    	{% with messages = get_flashed_messages() %}
+				{% if messages %}
+  		        <ul>
+					{% for message in messages %}
+    					<li> <strong> {{ message }} </strong> </li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+	</div>
+{% endblock %}
+{% block content %}
+	{% for i in restaurants %}
+		<div class="box restaurant-tile text-center">
+			<a href='{{url_for('showMenu',restaurant_id = i.id)}}'><img src="{{i.img}}"></a>
+		    <a href='{{url_for('showMenu',restaurant_id = i.id)}}'><h2>{{i.name}}</h2></a>
+		    <div><strong>Address:</strong> {{i.address}}</div>
+		    <div><strong>Phone:</strong> {{i.phone}}</div>
+		    <div><strong>Cousine:</strong> {{i.cousine}}</div>
+		    <div class = "editdeletepane">
+			    <a href='{{url_for('editRestaurant',restaurant_id = i.id)}}' >Edit</a>
+			    <a href='{{url_for('deleteRestaurant', restaurant_id = i.id)}}' >Delete</a>
+		    </div>
+	    </div>
+	{% endfor %}
+{% endblock %}
