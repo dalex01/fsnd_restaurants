@@ -16,7 +16,7 @@ data_json = json.loads("""{
 	  		"phone": "+123456789",
 	  		"website": "google.com",
 	  		"cousine": "French",
-	  		"img": "http://www.pulpolocal.com/wp-content/uploads/2013/11/ryba-11-200x300.jpg",
+	  		"img": "res1.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -24,7 +24,7 @@ data_json = json.loads("""{
 					"description": "with garlic and parmesan",
 					"price": "$2.99",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi1.jpg"
 				},
 				{
 					"user_id": 1,
@@ -32,7 +32,7 @@ data_json = json.loads("""{
 					"description": "Juicy grilled veggie patty with tomato mayo and lettuce",
 					"price": "$7.50",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi2.jpg"
 				},
 				{
 					"user_id": 1,
@@ -40,7 +40,7 @@ data_json = json.loads("""{
 					"description": "Juicy grilled chicken patty with tomato mayo and lettuce",
 					"price": "$5.50",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi3.jpg"
 				},
 				{
 					"user_id": 1,
@@ -48,7 +48,7 @@ data_json = json.loads("""{
 					"description": "fresh baked and served with ice cream",
 					"price": "$3.99",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi4.jpg"
 				},
 				{
 					"user_id": 1,
@@ -56,7 +56,7 @@ data_json = json.loads("""{
 					"description": "Made with grade A beef",
 					"price": "$7.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi5.jpg"
 				},
 				{
 					"user_id": 1,
@@ -64,7 +64,7 @@ data_json = json.loads("""{
 					"description": "16oz of refreshing goodness",
 					"price": "$1.99",
 					"course": "Beverage",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi6.jpg"
 				},
 				{
 					"user_id": 1,
@@ -72,7 +72,7 @@ data_json = json.loads("""{
 					"description": "with Lemon",
 					"price": "$.99",
 					"course": "Beverage",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi7.jpg"
 				},
 				{
 					"user_id": 1,
@@ -80,7 +80,7 @@ data_json = json.loads("""{
 					"description": "On texas toast with American Cheese",
 					"price": "$3.49",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi8.jpg"
 				},
 				{
 					"user_id": 1,
@@ -88,7 +88,7 @@ data_json = json.loads("""{
 					"description": "Made with freshest of ingredients and home grown spices",
 					"price": "$5.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi9.jpg"
 				}
 	  		]
 	  	},
@@ -99,7 +99,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://www.sandiegomagazine.com/San-Diego-Magazine/November-2011/Thanksgiving-Alfresco/thanksgiving-san-diego-magazine-1.jpg",
+			"img": "res2.jpg",
 			"menu_items": [
 				{
 					"user_id": 1,
@@ -107,7 +107,7 @@ data_json = json.loads("""{
 					"description": "With your choice of noodles vegetables and sauces",
 					"price": "$7.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi9.jpg"
 				},
 				{
 					"user_id": 1,
@@ -115,7 +115,7 @@ data_json = json.loads("""{
 					"description": " A famous duck dish from Beijing[1] that has been prepared since the imperial era. The meat is prized for its thin, crisp skin, with authentic versions of the dish serving mostly the skin and little meat, sliced in front of the diners by the cook",
 					"price": "$25",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi10.jpg"
 				},
 				{
 					"user_id": 1,
@@ -123,7 +123,7 @@ data_json = json.loads("""{
 					"description": "Seared rare ahi, avocado, edamame, cucumber with wasabi soy sauce ",
 					"price": "15",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi11.jpg"
 				},
 				{
 					"user_id": 1,
@@ -131,7 +131,7 @@ data_json = json.loads("""{
 					"description": "Steamed dumplings made with vegetables, spices and meat. ",
 					"price": "12",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi12.jpg"
 				},
 				{
 					"user_id": 1,
@@ -139,7 +139,7 @@ data_json = json.loads("""{
 					"description": "A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.",
 					"price": "14",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi13.jpg"
 				},
 				{
 					"user_id": 1,
@@ -147,7 +147,7 @@ data_json = json.loads("""{
 					"description": "a Japanese noodle soup dish. It consists of Chinese-style wheat noodles served in a meat- or (occasionally) fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork, dried seaweed, kamaboko, and green onions.",
 					"price": "12",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi14.jpg"
 				}
 			]
 		},
@@ -158,7 +158,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://r-ec.bstatic.com/images/hotel/max300/430/43085706.jpg",
+			"img": "res3.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -166,7 +166,7 @@ data_json = json.loads("""{
 					"description": "a Vietnamese noodle soup consisting of broth, linguine-shaped rice noodles called banh pho, a few herbs, and meat.",
 					"price": "$8.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi15.jpg"
 				},
 				{
 					"user_id": 1,
@@ -174,7 +174,7 @@ data_json = json.loads("""{
 					"description": "a common Chinese dumpling which generally consists of minced meat and finely chopped vegetables wrapped into a piece of dough skin. The skin can be either thin and elastic or thicker.",
 					"price": "$6.99",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi1.jpg"
 				},
 				{
 					"user_id": 1,
@@ -182,7 +182,7 @@ data_json = json.loads("""{
 					"description": "The most prominent differences between Japanese-style gyoza and Chinese-style jiaozi are the rich garlic flavor, which is less noticeable in the Chinese version, the light seasoning of Japanese gyoza with salt and soy sauce, and the fact that gyoza wrappers are much thinner",
 					"price": "$9.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi2.jpg"
 				},
 				{
 					"user_id": 1,
@@ -190,7 +190,7 @@ data_json = json.loads("""{
 					"description": "Taiwanese dish, deep fried fermented tofu served with pickled cabbage.",
 					"price": "$6.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi3.jpg"
 				},
 				{
 					"user_id": 1,
@@ -198,7 +198,7 @@ data_json = json.loads("""{
 					"description": "Juicy grilled veggie patty with tomato mayo and lettuce",
 					"price": "$9.50",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi4.jpg"
 				}
 	  		]
 		},
@@ -209,7 +209,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://alberghi.ultrahotels.net/images/hotels/zoom/b/36/36cb8610934c2b89da6f6fff639b853c.jpg",
+			"img": "res4.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -217,7 +217,7 @@ data_json = json.loads("""{
 					"description": "Rich, luscious sponge cake soaked in sweet milk and topped with vanilla bean whipped cream and strawberries.",
 					"price": "$2.99",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi5.jpg"
 				},
 				{
 					"user_id": 1,
@@ -225,7 +225,7 @@ data_json = json.loads("""{
 					"description": "Portabello mushrooms in a creamy risotto",
 					"price": "$5.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi6.jpg"
 				},
 				{
 					"user_id": 1,
@@ -233,7 +233,7 @@ data_json = json.loads("""{
 					"description": "Milk snow layered with honey boba, jasmine tea jelly, grass jelly, caramel, cream, and freshly made mochi",
 					"price": "$4.50",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi7.jpg"
 				},
 				{
 					"user_id": 1,
@@ -241,7 +241,7 @@ data_json = json.loads("""{
 					"description": "Golden fried cauliflower florets in a midly spiced soya,garlic sauce cooked with fresh cilantro, celery, chilies,ginger & green onions",
 					"price": "$6.95",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi8.jpg"
 				},
 				{
 					"user_id": 1,
@@ -249,7 +249,7 @@ data_json = json.loads("""{
 					"description": "Vegan goodness. Burrito filled with rice, garbanzo beans, curry sauce, potatoes (aloo), fried cauliflower (gobi) and chutney. Nom Nom",
 					"price": "$7.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi9.jpg"
 				},
 				{
 					"user_id": 1,
@@ -257,7 +257,7 @@ data_json = json.loads("""{
 					"description": "Juicy grilled veggie patty with tomato mayo and lettuce",
 					"price": "$6.80",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi10.jpg"
 				}
 	  		]
 		},
@@ -268,7 +268,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://100dorog.ru/upload/contents/680/HI68/HI68146707.jpg",
+			"img": "res5.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -276,7 +276,7 @@ data_json = json.loads("""{
 					"description": "Lobster, shrimp, sea snails, crawfish, stacked into a delicious tower",
 					"price": "$13.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi11.jpg"
 				},
 				{
 					"user_id": 1,
@@ -284,7 +284,7 @@ data_json = json.loads("""{
 					"description": "Chicken... and rice",
 					"price": "$4.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi12.jpg"
 				},
 				{
 					"user_id": 1,
@@ -292,7 +292,7 @@ data_json = json.loads("""{
 					"description": "Spaghetti with some incredible tomato sauce made by mom",
 					"price": "$6.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi13.jpg"
 				},
 				{
 					"user_id": 1,
@@ -300,7 +300,7 @@ data_json = json.loads("""{
 					"description": "Milk, cream, salt, ..., Liquid nitrogen magic",
 					"price": "$3.95",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi14.jpg"
 				},
 				{
 					"user_id": 1,
@@ -308,7 +308,7 @@ data_json = json.loads("""{
 					"description": "Noodles in a delicious pork-based broth with a soft-boiled egg",
 					"price": "$7.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi15.jpg"
 				}
 	  		]
 		},
@@ -319,7 +319,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://q-dc.bstatic.com/images/hotel/max300/148/14872422.jpg",
+			"img": "res6.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -327,7 +327,7 @@ data_json = json.loads("""{
 					"description": "Slow cook that thang in a pool of tomatoes, onions and alllll those tasty Indian spices. Mmmm.",
 					"price": "$9.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi1.jpg"
 				},
 				{
 					"user_id": 1,
@@ -335,7 +335,7 @@ data_json = json.loads("""{
 					"description": "Chicken cooked in Marsala wine sauce with mushrooms",
 					"price": "$7.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi2.jpg"
 				},
 				{
 					"user_id": 1,
@@ -343,7 +343,7 @@ data_json = json.loads("""{
 					"description": "Delicious chicken and veggies encapsulated in fried dough.",
 					"price": "$6.50",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi3.jpg"
 				},
 				{
 					"user_id": 1,
@@ -351,7 +351,7 @@ data_json = json.loads("""{
 					"description": "Maguro, Sake, Hamachi, Unagi, Uni, TORO!",
 					"price": "$6.75",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi4.jpg"
 				},
 				{
 					"user_id": 1,
@@ -359,7 +359,7 @@ data_json = json.loads("""{
 					"description": "Juicy grilled veggie patty with tomato mayo and lettuce",
 					"price": "$7.00",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi5.jpg"
 				}
 	  		]
 		},
@@ -370,7 +370,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://cs627628.vk.me/v627628409/b46c/uuOOnp_ktZ0.jpg",
+			"img": "res7.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -378,7 +378,7 @@ data_json = json.loads("""{
 					"description": "An unsettlingly huge amount of ripe berries turned into frozen (and seedless) awesomeness",
 					"price": "$2.99",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi6.jpg"
 				},
 				{
 					"user_id": 1,
@@ -386,7 +386,7 @@ data_json = json.loads("""{
 					"description": "Salmon fillet marinated with fresh herbs and broiled hot & fast",
 					"price": "$10.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi7.jpg"
 				},
 				{
 					"user_id": 1,
@@ -394,7 +394,7 @@ data_json = json.loads("""{
 					"description": "Wild morel mushrooms fried in butter, served on herbed toast slices",
 					"price": "$7.50",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi8.jpg"
 				},
 				{
 					"user_id": 1,
@@ -402,7 +402,7 @@ data_json = json.loads("""{
 					"description": "Chicken marinated in yoghurt and seasoned with a spicy mix(chilli, tamarind among others) and slow cooked in a cylindrical clay or metal oven which gets its heat from burning charcoal.",
 					"price": "$8.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi9.jpg"
 				},
 				{
 					"user_id": 1,
@@ -410,7 +410,7 @@ data_json = json.loads("""{
 					"description": "Juicy grilled veggie patty with tomato mayo and lettuce",
 					"price": "$9.50",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi10.jpg"
 				},
 				{
 					"user_id": 1,
@@ -418,7 +418,7 @@ data_json = json.loads("""{
 					"description": "Fresh battered sirloin steak fried and smothered with cream gravy",
 					"price": "$8.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi11.jpg"
 				},
 				{
 					"user_id": 1,
@@ -426,7 +426,7 @@ data_json = json.loads("""{
 					"description": "vanilla ice cream made with organic spinach leaves",
 					"price": "$1.99",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi12.jpg"
 				}
 	  		]
 		},
@@ -437,7 +437,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://r-ec.bstatic.com/images/hotel/max300/360/36062598.jpg",
+			"img": "res8.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -445,7 +445,7 @@ data_json = json.loads("""{
 					"description": "Marinated Pork, Rice, Beans, Avocado, Cilantro, Salsa, Tortilla",
 					"price": "$5.95",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi13.jpg"
 				},
 				{
 					"user_id": 1,
@@ -453,7 +453,7 @@ data_json = json.loads("""{
 					"description": "Golden brown, corn-based Venezuelan pancake; usually stuffed with queso telita or queso de mano, and possibly lechon. ",
 					"price": "$7.99",
 					"course": "Entree",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi14.jpg"
 				}
 	  		]
 		},
@@ -464,7 +464,7 @@ data_json = json.loads("""{
 			"phone": "+123456789",
 			"website": "google.com",
 			"cousine": "French",
-			"img": "http://cs605826.vk.me/v605826336/2b73/zS_FcMnRWDA.jpg",
+			"img": "res9.jpg",
 	  		"menu_items": [
 				{
 					"user_id": 1,
@@ -472,7 +472,7 @@ data_json = json.loads("""{
 					"description": "Crispy Toast with Sesame Seeds slathered with buttery chantrelle mushrooms",
 					"price": "$5.95",
 					"course": "Appetizer",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi15.jpg"
 				},
 				{
 					"user_id": 1,
@@ -480,7 +480,7 @@ data_json = json.loads("""{
 					"description": "Japanese egg custard served hot with spicey Italian Pork Jowl (guanciale)",
 					"price": "$6.95",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi1.jpg"
 				},
 				{
 					"user_id": 1,
@@ -488,7 +488,7 @@ data_json = json.loads("""{
 					"description": "Lemon Curd Ice Cream Sandwich on a chocolate macaron with cardamom meringue and cashews",
 					"price": "$4.25",
 					"course": "Dessert",
-					"img": "http://cs410422.vk.me/v410422551/6f70/MPbIcchYB9U.jpg"
+					"img": "mi2.jpg"
 				}
 	  		]
 		}

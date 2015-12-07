@@ -5,11 +5,13 @@ This file provide all routes of the application
 from flask import Flask, render_template, url_for, redirect, request, flash, jsonify, make_response
 from flask import session as login_session
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
+from werkzeug import secure_filename
 from models import Base, Restaurant, MenuItem, User
 from restaurants import app
-from restaurants.helpers import dbConnect, createUser, getUserID, getUserInfo, login_required
+from restaurants.helpers import dbConnect, createUser, getUserID, getUserInfo, login_required, allowed_file
 import httplib2, json, requests, random, string, os
 
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static/images')
 session = dbConnect()
 
 
@@ -271,19 +273,25 @@ def newRestaurant():
         Render new restaurant creation page or populate entered info into DB and redirect to all restaurants page
     """
     if request.method == 'POST':
-		newRestaurant = Restaurant(name=request.form['name'],
+        imgfile = request.files['imgfile']
+        if imgfile and allowed_file(imgfile.filename):
+            filename = secure_filename(imgfile.filename)
+            imgfile.save(os.path.join(UPLOAD_FOLDER, filename))
+        else:
+            filename = 'resdummy.gif'
+        newRestaurant = Restaurant(name=request.form['name'],
 								   address=request.form['address'],
 								   phone=request.form['phone'],
 								   website=request.form['website'],
 								   cousine=request.form['cousine'],
-								   img=request.form['img'],
+                                   img=filename,
                                    user_id=login_session['user_id'])
-		session.add(newRestaurant)
-		session.commit()
-		flash("new restaurant created!")
-		return redirect(url_for('showRestaurants'))
+        session.add(newRestaurant)
+        session.commit()
+        flash("new restaurant created!")
+        return redirect(url_for('showRestaurants'))
     else:
-		return render_template('newRestaurant.html')
+        return render_template('newRestaurant.html')
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
@@ -303,18 +311,24 @@ def editRestaurant(restaurant_id):
                 Please create your own restaurant in order to edit.');}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         # Check if particular field was changed
-        if request.form['name']:
+        if 'name' in request.form:
             editedRestaurant.name = request.form['name']
-        if request.form['address']:
+        if 'address' in request.form:
             editedRestaurant.address=request.form['address']
-        if request.form['phone']:
+        if 'phone' in request.form:
             editedRestaurant.phone=request.form['phone']
-        if request.form['website']:
+        if 'website' in request.form:
             editedRestaurant.website=request.form['website']
-        if request.form['cousine']:
+        if 'cousine' in request.form:
             editedRestaurant.cousine=request.form['cousine']
-        if request.form['img']:
-            editedRestaurant.img=request.form['img']
+        if 'imgfile' in request.files:
+            imgfile = request.files['imgfile']
+            if imgfile and allowed_file(imgfile.filename):
+                filename = secure_filename(imgfile.filename)
+                imgfile.save(os.path.join(UPLOAD_FOLDER, filename))
+            else:
+                filename = 'resdummy.gif'
+            editedRestaurant.img = filename
         session.add(editedRestaurant)
         session.commit()
         flash("restaurant edited!")
@@ -427,11 +441,17 @@ def newMenuItem(restaurant_id):
         Render new menu item creation page or populate entered info into DB and redirect to this restaurant's menu page
     """
     if request.method == 'POST':
+        imgfile = request.files['imgfile']
+        if imgfile and allowed_file(imgfile.filename):
+            filename = secure_filename(imgfile.filename)
+            imgfile.save(os.path.join(UPLOAD_FOLDER, filename))
+        else:
+            filename = 'midummy.gif'
         newItem = MenuItem(name=request.form['name'],
                            description=request.form['description'],
                            price=request.form['price'],
                            course=request.form['course'],
-                           img=request.form['img'],
+                           img=filename,
                            restaurant_id=restaurant_id,
                            user_id=login_session['user_id'])
         session.add(newItem)
@@ -460,16 +480,22 @@ def editMenuItem(restaurant_id, menu_id):
                 Please create your own in order to edit.');}</script><body onload='myFunction()''>"
     # Check if particular field was changed
     if request.method == 'POST':
-        if request.form['name']:
+        if 'name' in request.form:
             editedItem.name = request.form['name']
-        if request.form['description']:
+        if 'description' in request.form:
             editedItem.description=request.form['description']
-        if request.form['price']:
+        if 'price' in request.form:
             editedItem.price=request.form['price']
-        if request.form['course']:
+        if 'course' in request.form:
             editedItem.course=request.form['course']
-        if request.form['img']:
-            editedItem.img=request.form['img']
+        if 'imgfile' in request.files:
+            imgfile = request.files['imgfile']
+            if imgfile and allowed_file(imgfile.filename):
+                filename = secure_filename(imgfile.filename)
+                imgfile.save(os.path.join(UPLOAD_FOLDER, filename))
+            else:
+                filename = 'midummy.gif'
+            editedItem.img = filename
         session.add(editedItem)
         session.commit()
         flash("menu item edited!")

@@ -22,7 +22,7 @@
 {% block content %}
     {% for i in restaurants %}
         <div class="box restaurant-tile text-center">
-            <a href='{{url_for('showMenu',restaurant_id = i.id)}}'><img src="{{i.img}}"></a>
+            <a href='{{url_for('showMenu',restaurant_id = i.id)}}'><img src="{{url_for('static', filename='images/' + i.img)}}"></a>
             <a href='{{url_for('showMenu',restaurant_id = i.id)}}'><h2>{{i.name}}</h2></a>
             <div><strong>Address:</strong> {{i.address}}</div>
             <div><strong>Phone:</strong> {{i.phone}}</div>

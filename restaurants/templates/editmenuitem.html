@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
 	<div class = 'pane'>
-		<form action="{{ url_for('editMenuItem', restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post'>
+		<form action="{{ url_for('editMenuItem', restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post' enctype=multipart/form-data>
 			<dl>
 				<dt>Name:</dt>
 					<dd><input type ='text' size='30' name='name' value = '{{item.name}}'></dd>
@@ -24,8 +24,8 @@
 	   				<dd><input type ='radio' name='course' id="course2" value='Entree' {% if item.course == 'Entree' %}checked{%endif%}>Entree</dd>
 					<dd><input type ='radio' name='course' id="course3" value='Dessert' {% if item.course == 'Dessert'%}checked{%endif%}>Dessert</dd>
 					<dd><input type ='radio' name='course' id="course4" value='Beverage' {%if item.course =='Beverage'%}checked{%endif%}>Beverage</dd>
-				<dt>Url on img:</dt>
-					<dd><input type = 'text' size = '20' name='img' value = '{{item.img}}'></dd>
+				<dt>Image:</dt>
+					<dd><input type = "file" name="imgfile"></dd>
 			</dl>
 			<input type='submit' value='Edit'>
 			<a href = '{{url_for('showMenu', restaurant_id = restaurant_id)}}'> Cancel </a>

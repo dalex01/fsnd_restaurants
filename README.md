@@ -32,6 +32,5 @@ App allows:
 ## TODO
 
 1. Add tests
-2. Store images in FS (not by links from external resources)
-3. Refactor template for Menu to make it more usefull
-4. Integrate with some review and restaurant menu API
+2. Refactor template for Menu to make it more usefull
+3. Integrate with some review and restaurant menu API

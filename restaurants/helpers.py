@@ -8,6 +8,10 @@ from functools import wraps
 from flask import g, request, redirect, url_for
 from flask import session as login_session
 
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+
+
 def dbConnect():
 	"""
 	Connect to DB and create session
@@ -20,6 +24,10 @@ def dbConnect():
 	return session
 
 session = dbConnect()
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 def login_required(f):
