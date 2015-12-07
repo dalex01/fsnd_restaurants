@@ -270,16 +270,14 @@ def newRestaurant():
     Output:
         Render new restaurant creation page or populate entered info into DB and redirect to all restaurants page
     """
-    # Redirect to login page if user is not logged in
-    #if 'username' not in login_session:
-    #    return redirect('/login')
     if request.method == 'POST':
 		newRestaurant = Restaurant(name=request.form['name'],
 								   address=request.form['address'],
 								   phone=request.form['phone'],
 								   website=request.form['website'],
 								   cousine=request.form['cousine'],
-								   img=request.form['img'])
+								   img=request.form['img'],
+                                   user_id=login_session['user_id'])
 		session.add(newRestaurant)
 		session.commit()
 		flash("new restaurant created!")
@@ -298,9 +296,6 @@ def editRestaurant(restaurant_id):
     Output:
         Render edit restaurant page or update entered info into DB and redirect to all restaurants page
     """
-    # Redirect to login page if user is not logged in
-    #if 'username' not in login_session:
-    #    return redirect('/login')
     editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     # Alert if logged in user doesn't have permission to edit restaurant (restaurant was created by some other user)
     if editedRestaurant.user_id != login_session['user_id']:
@@ -338,9 +333,6 @@ def deleteRestaurant(restaurant_id):
     Output:
         Render delete restaurant page or delete restaurant and redirect to all restaurants page
     """
-    # Redirect to login page if user is not logged in
-    #if 'username' not in login_session:
-    #    return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     # Alert if logged in user doesn't have permission to delete restaurant (restaurant was created by some other user)
     if restaurant.user_id != login_session['user_id']:
@@ -434,16 +426,14 @@ def newMenuItem(restaurant_id):
     Output:
         Render new menu item creation page or populate entered info into DB and redirect to this restaurant's menu page
     """
-    # Redirect to login page if user is not logged in
-    #if 'username' not in login_session:
-    #    return redirect('/login')
     if request.method == 'POST':
         newItem = MenuItem(name=request.form['name'],
                            description=request.form['description'],
                            price=request.form['price'],
                            course=request.form['course'],
                            img=request.form['img'],
-                           restaurant_id=restaurant_id)
+                           restaurant_id=restaurant_id,
+                           user_id=login_session['user_id'])
         session.add(newItem)
         session.commit()
         flash("new menu item created!")
@@ -463,9 +453,6 @@ def editMenuItem(restaurant_id, menu_id):
     Output:
         Render edit menu item page or update entered info into DB and redirect to this restaurant's menu page
     """
-    # Redirect to login page if user is not logged in
-    #if 'username' not in login_session:
-    #    return redirect('/login')
     editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
     # Alert if logged in user doesn't have permission to edit menu item (menu item was created by some other user)
     if editedItem.user_id != login_session['user_id']:
@@ -502,9 +489,6 @@ def deleteMenuItem(restaurant_id, menu_id):
     Output:
         Render delete menu item page or delete menu item and redirect to this restaurant's menu page
     """
-    # Redirect to login page if user is not logged in
-    #if 'username' not in login_session:
-    #    return redirect('/login')
     item = session.query(MenuItem).filter_by(id=menu_id).one()
     # Alert if logged in user doesn't have permission to delete menu item (menu item was created by some other user)
     if item.user_id != login_session['user_id']:

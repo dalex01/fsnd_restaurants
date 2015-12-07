@@ -11,39 +11,19 @@
 {% endblock %}
 {% block content %}
 	<div class = 'pane'>
-		<form action="{{ url_for('editMenuItem',restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post'>
+		<form action="{{ url_for('editMenuItem', restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post'>
 			<dl>
 				<dt>Name:</dt>
-					<dd><input type ='text' size='30' name='name' value = '{{item.name }}'></dd>
+					<dd><input type ='text' size='30' name='name' value = '{{item.name}}'></dd>
 				<dt>Description:</dt>
-					<dd><textarea name = 'description' rows='5' cols='40'>{{item.description }}</textarea></dd>
+					<dd><textarea name = 'description' rows='5' cols='40' placeholder = ''>{{item.description}}</textarea></dd>
 				<dt>Price:</dt>
 					<dd><input type = 'text' size = '8' name='price' value = '{{item.price}}'></dd>
 				<dt>Course:</dt>
-
-				{% if item.course == 'Appetizier' %}
-					<dd><input type ='radio' name='course' value='Appetizer'checked >Appetizer</dd>
-				{%else%}
-					<dd><input type ='radio' name='course' value='Appetizer' >Appetizer</dd>
-				{% endif %}
-
-				{% if item.course == 'Entree' %}
-	   				<dd><input type ='radio' name='course' value='Entree' checked>Entree</dd>
-				{%else%}
-					<dd><input type ='radio' name='course' value='Entree'>Entree</dd>
-				{% endif %}
-
-				{% if item.course == 'Dessert'%}
-					<dd><input type ='radio' name='course' value='Dessert'checked >Dessert</dd>
-				{% else %}
-	   				<dd><input type ='radio' name='course' value='Dessert'>Dessert</dd>
-				{% endif %}
-
-				{%if item.course =='Beverage'%}
-					<dd><input type ='radio' name='course' value='Beverage'checked >Beverage</dd>
-				{% else %}
-					<dd><input type ='radio' name='course' value='Beverage'>Beverage</dd>
-				{% endif %}
+					<dd><input type ='radio' name='course' id="course1" value='Appetizer' {% if item.course == 'Appetizer'%}checked{%endif%}>Appetizer</dd>
+	   				<dd><input type ='radio' name='course' id="course2" value='Entree' {% if item.course == 'Entree' %}checked{%endif%}>Entree</dd>
+					<dd><input type ='radio' name='course' id="course3" value='Dessert' {% if item.course == 'Dessert'%}checked{%endif%}>Dessert</dd>
+					<dd><input type ='radio' name='course' id="course4" value='Beverage' {%if item.course =='Beverage'%}checked{%endif%}>Beverage</dd>
 				<dt>Url on img:</dt>
 					<dd><input type = 'text' size = '20' name='img' value = '{{item.img}}'></dd>
 			</dl>
