@@ -533,6 +533,7 @@ for restaurant in data_json['all_restaurants']:
   	session.commit()
   	for menu_item in restaurant["menu_items"]:
   		menuItem = MenuItem(user_id = menu_item["user_id"],
+  							restaurant_id = res.id,
 							name = str(menu_item["name"]),
 							description = str(menu_item["description"]),
 							price = str(menu_item["price"]),

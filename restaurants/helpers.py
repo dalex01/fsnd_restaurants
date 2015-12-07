@@ -4,7 +4,9 @@ This file provide all application helper functions
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base, Restaurant, MenuItem, User
-
+from functools import wraps
+from flask import g, request, redirect, url_for
+from flask import session as login_session
 
 def dbConnect():
 	"""
@@ -18,6 +20,16 @@ def dbConnect():
 	return session
 
 session = dbConnect()
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' not in login_session:
+            return redirect(url_for('showLogin'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 
 def createUser(login_session):
     """

@@ -7,7 +7,7 @@ from flask import session as login_session
 from oauth2client.client import flow_from_clientsecrets, FlowExchangeError
 from models import Base, Restaurant, MenuItem, User
 from restaurants import app
-from restaurants.helpers import dbConnect, createUser, getUserID, getUserInfo
+from restaurants.helpers import dbConnect, createUser, getUserID, getUserInfo, login_required
 import httplib2, json, requests, random, string, os
 
 session = dbConnect()
@@ -263,6 +263,7 @@ def showRestaurants():
 
 
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
+@login_required
 def newRestaurant():
     """
     New restaurant page
@@ -270,8 +271,8 @@ def newRestaurant():
         Render new restaurant creation page or populate entered info into DB and redirect to all restaurants page
     """
     # Redirect to login page if user is not logged in
-    if 'username' not in login_session:
-        return redirect('/login')
+    #if 'username' not in login_session:
+    #    return redirect('/login')
     if request.method == 'POST':
 		newRestaurant = Restaurant(name=request.form['name'],
 								   address=request.form['address'],
@@ -288,6 +289,7 @@ def newRestaurant():
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def editRestaurant(restaurant_id):
     """
     Edit restaurant info page
@@ -297,8 +299,8 @@ def editRestaurant(restaurant_id):
         Render edit restaurant page or update entered info into DB and redirect to all restaurants page
     """
     # Redirect to login page if user is not logged in
-    if 'username' not in login_session:
-        return redirect('/login')
+    #if 'username' not in login_session:
+    #    return redirect('/login')
     editedRestaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     # Alert if logged in user doesn't have permission to edit restaurant (restaurant was created by some other user)
     if editedRestaurant.user_id != login_session['user_id']:
@@ -327,6 +329,7 @@ def editRestaurant(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+@login_required
 def deleteRestaurant(restaurant_id):
     """
     Delete restaurant info page
@@ -336,8 +339,8 @@ def deleteRestaurant(restaurant_id):
         Render delete restaurant page or delete restaurant and redirect to all restaurants page
     """
     # Redirect to login page if user is not logged in
-    if 'username' not in login_session:
-        return redirect('/login')
+    #if 'username' not in login_session:
+    #    return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     # Alert if logged in user doesn't have permission to delete restaurant (restaurant was created by some other user)
     if restaurant.user_id != login_session['user_id']:
@@ -422,6 +425,7 @@ def showMenu(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
+@login_required
 def newMenuItem(restaurant_id):
     """
     New menu item page
@@ -431,8 +435,8 @@ def newMenuItem(restaurant_id):
         Render new menu item creation page or populate entered info into DB and redirect to this restaurant's menu page
     """
     # Redirect to login page if user is not logged in
-    if 'username' not in login_session:
-        return redirect('/login')
+    #if 'username' not in login_session:
+    #    return redirect('/login')
     if request.method == 'POST':
         newItem = MenuItem(name=request.form['name'],
                            description=request.form['description'],
@@ -449,6 +453,7 @@ def newMenuItem(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit', methods=['GET', 'POST'])
+@login_required
 def editMenuItem(restaurant_id, menu_id):
     """
     Edit menu item info page
@@ -459,8 +464,8 @@ def editMenuItem(restaurant_id, menu_id):
         Render edit menu item page or update entered info into DB and redirect to this restaurant's menu page
     """
     # Redirect to login page if user is not logged in
-    if 'username' not in login_session:
-        return redirect('/login')
+    #if 'username' not in login_session:
+    #    return redirect('/login')
     editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
     # Alert if logged in user doesn't have permission to edit menu item (menu item was created by some other user)
     if editedItem.user_id != login_session['user_id']:
@@ -487,6 +492,7 @@ def editMenuItem(restaurant_id, menu_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteMenuItem(restaurant_id, menu_id):
     """
     Delete menu item info page
@@ -497,8 +503,8 @@ def deleteMenuItem(restaurant_id, menu_id):
         Render delete menu item page or delete menu item and redirect to this restaurant's menu page
     """
     # Redirect to login page if user is not logged in
-    if 'username' not in login_session:
-        return redirect('/login')
+    #if 'username' not in login_session:
+    #    return redirect('/login')
     item = session.query(MenuItem).filter_by(id=menu_id).one()
     # Alert if logged in user doesn't have permission to delete menu item (menu item was created by some other user)
     if item.user_id != login_session['user_id']:

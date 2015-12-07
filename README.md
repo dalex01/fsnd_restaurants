@@ -8,7 +8,7 @@ Project was developed and reviewed according to this [rubric](http://imgur.com/b
 
 ## How to use
 
-App is deployed on heroku.com servers: http://desolate-bayou-9779.herokuapp.com/
+App is deployed on heroku.com servers: http://fsnd-p3-restaurantmenu.herokuapp.com/
 
 ## Features
 
