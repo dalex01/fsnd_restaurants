@@ -13,6 +13,7 @@
     <div class = 'pane'>
         <h1> Are you sure you want to delete '{{item.name}}' restaurant? </h1>
         <form action="{{ url_for('deleteRestaurant',restaurant_id = restaurant_id)}}" method = 'post'>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
             <input type='submit' value='Delete'>
             <a href = '{{url_for('showRestaurants')}}'> Cancel </a>
         </form>
