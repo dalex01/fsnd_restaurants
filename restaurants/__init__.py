@@ -6,3 +6,4 @@ app.config['MAX_CONTENT_LENGTH'] = 4 * 1024 * 1024
 csrf = SeaSurf(app)
 
 import restaurants.views
+import restaurants.endpoints
